@@ -46,11 +46,11 @@ const userSchema= new Schema(
 )
 
 
-userSchema.pre("save", function(next)
+userSchema.pre("save", async function(next)
 { //if there is no changes in the password enterd by the user than simply return next(), or proceed ahed.
   if(!this.isModified("password")) return next();
 
-  this.password=bcrypt.hash(this.password,10)
+  this.password=await bcrypt.hash(this.password,10)
   next()
 
 })
